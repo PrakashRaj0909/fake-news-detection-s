@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<button id="theme-toggle">🌙 Toggle Mode</button>
+
+<div class="container">
+    <h1>Fake News Detection System</h1>
+
+    <form action="/predict" method="POST">
+        <textarea name="news" rows="12" placeholder="Paste news article here..."></textarea>
+        <br><br>
+
+        <button type="submit" onclick="showLoader()">Analyze News</button>
+
+        <a href="/">
+            <button type="button">Clear</button>
+        </a>
+        <a href="/history">
+    <button type="button">View History</button>
+</a>
+<a href="/dashboard">
+    <button type="button">Dashboard</button>
+</a>
+<a href="/export">
+    <button type="button">Export CSV</button>
+</a>
+    </form>
+
+    <!-- Loader -->
+    <div id="loader" style="display:none;">
+        <p>Analyzing...</p>
+    </div>
+
+    {% if prediction is defined %}
+        <div class="result {{ 'real' if prediction == 'Real News' else 'fake' }}">
+            Result: {{ prediction }}
+            <br>
+            Confidence: {{ confidence }}%
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    const toggleBtn = document.getElementById("theme-toggle");
+
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+
+    // Toggle theme
+    toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        // Save theme
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    });
+
+    // Show loader when analyzing
+    function showLoader() {
+        document.getElementById("loader").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
+
