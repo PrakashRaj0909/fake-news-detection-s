@@ -2,6 +2,8 @@
 
 Live Demo: https://fake-news-detection-dhka.onrender.com/
 
+DataSet Link:https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset
+
 GitHub Repository: https://github.com/PrakashRaj0909/fake-news-detection-s.git
 
 ## Features
